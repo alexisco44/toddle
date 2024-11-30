@@ -3,7 +3,7 @@
     "short_name": "cockpitcanari",
     "description": "L'application des supporters du FCNantes.",
     "version": "1.0.0",
-    "start_url": "/index.html",
+    "start_url": "/",
     "display": "standalone",
     "background_color": "#FCD34D",
     "theme_color": "#34D399",
