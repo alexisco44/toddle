@@ -1,1 +1,18 @@
 
+{
+    "name": "Cockpit Canari",
+    "short_name": "Cockpit",
+    "theme_color": "#ffcbe4",
+    "background_color": "#fa99ca",
+    "display": "standalone",
+    "scope": "/",
+    "start_url": "https://pwa-cockpitcanari.toddle.site/",
+    "description": "L'application canarie",
+    "orientation": "any",
+    "icons": [
+        {
+            "src": "https://christine.website/static/img/avatar.png",
+            "sizes": "1024x1024"
+        }
+    ]
+}
