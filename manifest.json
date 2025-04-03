@@ -6,7 +6,7 @@
     "background_color": "#fa99ca",
     "display": "standalone",
     "scope": "/",
-    "start_url": "https://pwa-cockpitcanari.toddle.site/",
+    "start_url": "/",
     "description": "L'application canarie",
     "orientation": "any",
     "icons": [
