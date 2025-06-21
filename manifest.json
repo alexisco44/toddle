@@ -1,10 +1,10 @@
 {
-  "name": "Mon App Toddle",
-  "short_name": "ToddleApp",
+  "name": "Cockpit Canari",
+  "short_name": "CockpitCanari",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#2196f3",
+  "background_color": "#262626",
+  "theme_color": "#FBBF24",
   "icons": [
     {
       "src": "https://cockpitcanari.fr/cdn-cgi/imagedelivery/ZIty0Vhmkm0nD-fBKJrTZQ/cockpitcanari:Logo-riri(1)/public",
