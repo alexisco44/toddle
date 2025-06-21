@@ -1,57 +1,46 @@
-// Nom du cache
-const CACHE_NAME = "toddle-app-cache-v1";
+const CACHE_NAME = "cockpitcanari-cache-v1";
 
-// Fichiers à mettre en cache
-const ASSETS_TO_CACHE = [
+const ASSETS = [
   "/",
-  "/index.html",
-  "/styles.css",
-  "/app.js",
+  "/manifest.json",
   "/icons/icon-192x192.png",
   "/icons/icon-512x512.png"
 ];
 
-// Événement d'installation : Mise en cache des fichiers
-self.addEventListener("install", (event) => {
+// Installation : mise en cache des fichiers statiques essentiels
+self.addEventListener("install", event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      console.log("Mise en cache des fichiers...");
-      return cache.addAll(ASSETS_TO_CACHE);
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(ASSETS))
   );
+  self.skipWaiting();
 });
 
-// Événement d'activation : Nettoyage des anciens caches
-self.addEventListener("activate", (event) => {
+// Activation : nettoyage des anciens caches
+self.addEventListener("activate", event => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames.map((cache) => {
-          if (cache !== CACHE_NAME) {
-            console.log("Suppression de l'ancien cache :", cache);
-            return caches.delete(cache);
+    caches.keys().then(keys =>
+      Promise.all(
+        keys.map(key => {
+          if (key !== CACHE_NAME) {
+            return caches.delete(key);
           }
         })
-      );
-    })
+      )
+    )
   );
+  self.clients.claim();
 });
 
-// Événement fetch : Interception des requêtes réseau
-self.addEventListener("fetch", (event) => {
+// Interception des requêtes : sert les fichiers statiques en cache, ignore Supabase
+self.addEventListener("fetch", event => {
+  const url = new URL(event.request.url);
+
+  // Ne pas intercepter les appels vers Supabase
+  if (url.origin.includes("supabase.co")) return;
+
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      // Retourne le fichier en cache si disponible, sinon fait une requête réseau
-      return (
-        response ||
-        fetch(event.request).then((networkResponse) => {
-          // Optionnel : ajoute la nouvelle réponse au cache
-          return caches.open(CACHE_NAME).then((cache) => {
-            cache.put(event.request, networkResponse.clone());
-            return networkResponse;
-          });
-        })
-      );
-    })
+    caches.match(event.request).then(response =>
+      response || fetch(event.request)
+    )
   );
 });
