@@ -1,43 +1,61 @@
-// offline_serviceworker.js
-
-const CACHE_NAME = "nordcraft-cache-v1";
+const CACHE_NAME = 'nordcraft-cache-v1';
 const PRECACHE_URLS = [
-  "./",                  // la racine
-  "./index.html",        // la page principale
-  "./assets/app.js",     // le script principal généré par Nordcraft
-  "./assets/style.css",  // le CSS principal
-  "./manifest.json",     // si tu veux le mettre aussi en cache
-  "./icons/icon-192.png",
-  "./icons/icon-512.png"
+  '/',                // page d'accueil
+  '/(index)',      // fichier principal
+  '/manifest.json',   // manifest PWA
+  '/_static/page.main.js',   // JS principal (à adapter selon Nordcraft)
+  '/_static/reset.css' // CSS principal (à adapter aussi)
 ];
 
-// Installation : mise en cache initiale
-self.addEventListener("install", (event) => {
+// 1. Installation : cache initial des ressources critiques
+self.addEventListener('install', event => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(PRECACHE_URLS);
-    })
+    caches.open(CACHE_NAME).then(cache => cache.addAll(PRECACHE_URLS))
   );
+  self.skipWaiting(); // active le nouveau SW immédiatement
 });
 
-// Activation : nettoyage des anciens caches si nécessaire
-self.addEventListener("activate", (event) => {
+// 2. Activation : nettoyage des caches obsolètes
+self.addEventListener('activate', event => {
   event.waitUntil(
-    caches.keys().then((cacheNames) =>
+    caches.keys().then(keys =>
       Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
+        keys.filter(key => key !== CACHE_NAME).map(key => caches.delete(key))
       )
     )
   );
+  self.clients.claim(); // prend le contrôle des pages immédiatement
 });
 
-// Interception des requêtes
-self.addEventListener("fetch", (event) => {
+// 3. Interception des requêtes : stratégie cache-first puis réseau
+self.addEventListener('fetch', event => {
+  const { request } = event;
+
+  // Ignorer les requêtes non-GET (POST, PUT, etc.)
+  if (request.method !== 'GET') {
+    return;
+  }
+
+  // Stratégie cache d'abord
   event.respondWith(
-    caches.match(event.request).then((cachedResponse) => {
-      return cachedResponse || fetch(event.request);
+    caches.match(request).then(cachedResponse => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+
+      // Sinon, tenter une requête réseau puis mettre en cache dynamiquement
+      return fetch(request).then(networkResponse => {
+        return caches.open(CACHE_NAME).then(cache => {
+          // On clone la réponse car fetch ne peut être utilisé qu'une fois
+          cache.put(request, networkResponse.clone());
+          return networkResponse;
+        });
+      }).catch(() => {
+        // Si réseau indisponible, retourne éventuellement une fallback si prévue
+        if (request.destination === 'document') {
+          return caches.match('/offline.html'); // à créer si besoin
+        }
+      });
     })
   );
 });
