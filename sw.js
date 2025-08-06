@@ -3,7 +3,8 @@ const PRECACHE_URLS = [
   '/',                // page d'accueil
   //'/(index)',      // fichier principal
   //'/manifest.json',   // manifest PWA
-  '/_static/page.main.js',   // JS principal (à adapter selon Nordcraft)
+  '/_static/page.main.js',   // JS principal Nordcraft
+  '/.toddle/custom-code.js', // JS custom actions dans Nordcraft
   //'/_static/reset.css' // CSS principal (à adapter aussi)
 ];
 
@@ -59,4 +60,5 @@ self.addEventListener('fetch', event => {
     })
   );
 });
+
 
