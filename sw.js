@@ -1,10 +1,10 @@
 const CACHE_NAME = 'nordcraft-cache-v1';
 const PRECACHE_URLS = [
   '/',                // page d'accueil
-  '/(index)',      // fichier principal
-  '/manifest.json',   // manifest PWA
+  //'/(index)',      // fichier principal
+  //'/manifest.json',   // manifest PWA
   '/_static/page.main.js',   // JS principal (à adapter selon Nordcraft)
-  '/_static/reset.css' // CSS principal (à adapter aussi)
+  //'/_static/reset.css' // CSS principal (à adapter aussi)
 ];
 
 // 1. Installation : cache initial des ressources critiques
@@ -59,3 +59,4 @@ self.addEventListener('fetch', event => {
     })
   );
 });
+
