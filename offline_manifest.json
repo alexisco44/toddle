@@ -10,14 +10,15 @@
   "theme_color": "#000000",
   "icons": [
     {
-      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjMWytrHPDbFipmwQzapZfS53Bf3SO2dHsuw&s",
+      "src": "https://media.licdn.com/dms/image/v2/D4D0BAQEHvXgavihQfQ/company-logo_200_200/B4DZhRgYXqHwAI-/0/1753714100776/dycazo_logo?e=2147483647&v=beta&t=h0wfnpKxgd2CPOzhCR1XVzkBGEsDcX6zyJitv2-igX4",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjMWytrHPDbFipmwQzapZfS53Bf3SO2dHsuw&s",
+      "src": "https://media.licdn.com/dms/image/v2/D4D0BAQEHvXgavihQfQ/company-logo_200_200/B4DZhRgYXqHwAI-/0/1753714100776/dycazo_logo?e=2147483647&v=beta&t=h0wfnpKxgd2CPOzhCR1XVzkBGEsDcX6zyJitv2-igX4",
       "sizes": "512x512",
       "type": "image/png"
     }
   ]
+
 }
