@@ -1,7 +1,7 @@
 {
-  "name": "Offline form",
-  "short_name": "offApp",
-  "description": "My offline-first app",
+  "name": "Batigest",
+  "short_name": "Batigest",
+  "description": "Mon application Batigest",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -22,3 +22,4 @@
   ]
 
 }
+
