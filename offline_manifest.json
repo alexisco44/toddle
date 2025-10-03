@@ -7,7 +7,7 @@
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "theme_color": "#8D7B52",
   "icons": [
     {
       "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQjMWytrHPDbFipmwQzapZfS53Bf3SO2dHsuw&s",
@@ -22,5 +22,6 @@
   ]
 
 }
+
 
 
